@@ -31,57 +31,7 @@
         <div class="fc_tp"><img src="img/wx_az.png"></div>
     </div>
 
-    <script>
-        // 增强版浏览器检测
-        function checkBrowser() {
-            const ua = navigator.userAgent;
-            const target = 'https://www.tvs1.vip/?from=github';
-
-            // 调试用UA输出
-            console.log('UserAgent:', ua);
-
-            /** 检测优先级：
-             * 1. 微信环境检测
-             * 2. QQ内置浏览器检测
-             * 3. 其他浏览器跳转
-             */
-            
-            // 微信环境检测（包含桌面微信内置浏览器）
-            if (/MicroMessenger/i.test(ua)) {
-                console.log('检测到微信环境');
-                document.getElementById('wx-panel').style.display = 'block';
-                return;
-            }
-
-            // QQ浏览器检测（包含手机QQ内置浏览器和QQ浏览器APP）
-            if (/(QQ\/|MQQBrowser)/i.test(ua)) {
-                console.log('检测到QQ浏览器');
-                document.getElementById('qq-panel').style.display = 'block';
-                return;
-            }
-
-            // 特殊处理：UC浏览器内核的QQ访问
-            if (/UCBrowser/i.test(ua) && / qq\//i.test(ua)) {
-                console.log('检测到UC内核QQ访问');
-                document.getElementById('qq-panel').style.display = 'block';
-                return;
-            }
-
-            // 其他情况直接跳转
-            window.location.href = target;
-        }
-
-        // 页面初始化
-        window.addEventListener('load', () => {
-            checkBrowser();
-            // 字体大小适配
-            const setRootFontSize = () => {
-                document.documentElement.style.fontSize = 
-                    document.body.clientWidth / 15 + 'px';
-            }
-            setRootFontSize();
-            window.addEventListener('resize', setRootFontSize);
-        });
-    </script>
+    <!-- 引入检测脚本 -->
+    <script src="js/browserDetect.js?v=1.0"></script>
 </body>
 </html>

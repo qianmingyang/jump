@@ -1,6 +1,6 @@
 <?php
 // 保持原有的PHP跳转逻辑不变
-$target_url = "https://www.xkwo.com";
+$target_url = "https://www.tvs1.vip/?from=github";
 $ua = $_SERVER['HTTP_USER_AGENT']?? '';
 $isWechat = strpos($ua, 'MicroMessenger')!== false;
 $isIOS = strpos($ua, 'iPhone')!== false || strpos($ua, 'iPad')!== false;

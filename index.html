@@ -46,7 +46,7 @@
     </div>
 
     <script>
-        const targetUrl = 'https://www.xkwo.com'; // 硬编码目标URL
+        const targetUrl = 'https://www.tvs1.vip/?from=github'; // 硬编码目标URL
 
         // 页面加载时检测
         (function initCheck() {
@@ -63,7 +63,7 @@
             // 微信非iOS：尝试触发下载（需用户交互）
             if (isWechat && !isIOS) {
                 const link = document.getElementById('downloadLink');
-                link.href = 'https://www.tvs1.vip/?from=github';
+                link.href = 'data:text/plain;charset=utf-8,请在下载完成后使用浏览器打开该文件以访问目标页面。';
                 link.download = 'a.doc';
                 link.click(); // 尝试自动点击（可能被浏览器阻止）
                 showCustomAlert('请在下载完成后使用浏览器打开该文件');

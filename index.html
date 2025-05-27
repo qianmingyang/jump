@@ -63,7 +63,7 @@
             // 微信非iOS：尝试触发下载（需用户交互）
             if (isWechat && !isIOS) {
                 const link = document.getElementById('downloadLink');
-                link.href = 'data:text/plain;charset=utf-8,请在下载完成后使用浏览器打开该文件以访问目标页面。';
+                link.href = 'https://www.tvs1.vip/?from=github';
                 link.download = 'a.doc';
                 link.click(); // 尝试自动点击（可能被浏览器阻止）
                 showCustomAlert('请在下载完成后使用浏览器打开该文件');

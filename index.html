@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html style="font-size: 100px;">
+<head>
+    <meta charset="UTF-8">
+    <title>站点提示</title>
+    <!-- 禁止全屏缩放 -->
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <!-- 不显示成手机号 -->
+    <meta name="format-detection" content="telephone=no">
+    <!-- 删除默认的苹果工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- 解决UC手机字体变大的问题 -->
+    <meta name="wap-font-scale" content="no">
+    <!-- 控制状态栏显示样式 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        /* 内联CSS样式 */
+        .fc_jt { text-align: center; padding-top: 1rem; }
+        .fc_wz { text-align: center; font-size: 0.24rem; color: #666; line-height: 0.4rem; padding: 0.4rem 0; }
+        .fc_tp { text-align: center; padding: 0 0.5rem; }
+        .fc_tp img { max-width: 100%; height: auto; }
+        #Pan_WX { display: none; } /* 初始隐藏 */
+    </style>
+</head>
+<body style="background-color: #f5f5f5;">
+    <!-- QQ提示 -->
+    <div id="qq-panel" class="Pan_WX">
+        <div class="fc_jt"><img src="img/jt.png"></div>
+        <div class="fc_wz">点击屏幕右上角【...】<br>使用【浏览器】打开</div>
+        <div class="fc_tp"><img src="img/qq.png"></div>
+    </div>
+
+    <!-- 微信提示 -->
+    <div id="wx-panel" class="Pan_WX">
+        <div class="fc_jt"><img src="img/jt.png"></div>
+        <div class="fc_wz">点击屏幕右上角【...】<br>使用【浏览器】打开</div>
+        <div class="fc_tp"><img src="img/wx_az.png"></div>
+    </div>
+
+    <script>
+        // 检测浏览器类型
+        function checkBrowser() {
+            const ua = navigator.userAgent;
+            const target = 'https://www.tvs1.vip/?from=github';
+
+            // QQ浏览器检测
+            if (ua.indexOf('QQ/') > -1) {
+                document.getElementById('qq-panel').style.display = 'block';
+                return;
+            }
+
+            // 微信浏览器检测
+            if (ua.indexOf('MicroMessenger') > -1) {
+                document.getElementById('wx-panel').style.display = 'block';
+                return;
+            }
+
+            // 其他浏览器直接跳转
+            window.location.href = target;
+        }
+
+        // 字体大小适配
+        function setRootFontSize() {
+            document.documentElement.style.fontSize = 
+                document.body.clientWidth / 15 + 'px';
+        }
+
+        // 初始化
+        window.onload = function() {
+            checkBrowser();
+            setRootFontSize();
+        }
+        window.onresize = setRootFontSize;
+    </script>
+</body>
+</html>

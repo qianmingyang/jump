@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>微信浏览器提示</title>
+    <title>请在浏览器中打开</title>
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -37,6 +38,12 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .header {
@@ -44,8 +51,8 @@
         }
         
         .logo {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: linear-gradient(135deg, #09c6f9 0%, #2575fc 100%);
             border-radius: 50%;
             display: flex;
@@ -53,33 +60,80 @@
             justify-content: center;
             margin: 0 auto 20px;
             box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 10px 25px rgba(37, 117, 252, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3); }
         }
         
         .logo i {
-            font-size: 40px;
+            font-size: 50px;
             color: white;
         }
         
         h1 {
-            font-size: 28px;
+            font-size: 32px;
             color: #2c3e50;
             margin-bottom: 10px;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .subtitle {
             font-size: 18px;
             color: #7f8c8d;
             margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .instruction-card {
+        .problem-card {
             background: #f8f9fa;
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: left;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .problem-card h2 {
+            display: flex;
+            align-items: center;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .problem-card h2 i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        .problem-card ul {
+            padding-left: 30px;
+        }
+        
+        .problem-card li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .instruction-card {
+            background: #e3f2fd;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             text-align: center;
+            border: 2px dashed #2575fc;
+        }
+        
+        .instruction-card h2 {
+            color: #2575fc;
+            margin-bottom: 20px;
         }
         
         .steps {
@@ -91,12 +145,23 @@
         }
         
         .step {
-            flex: 0 0 150px;
+            flex: 0 0 160px;
+            position: relative;
         }
         
-        .step-number {
-            width: 40px;
-            height: 40px;
+        .step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            top: 45px;
+            right: -20px;
+            font-size: 24px;
+            color: #2575fc;
+            font-weight: bold;
+        }
+        
+        .step-icon {
+            width: 70px;
+            height: 70px;
             background: #2575fc;
             color: white;
             border-radius: 50%;
@@ -104,22 +169,28 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
-            font-weight: bold;
-            font-size: 20px;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
         }
         
         .step p {
             font-size: 16px;
             color: #34495e;
             font-weight: 500;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: inline-block;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
         .visual-guide {
-            background: #e3f2fd;
+            background: white;
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 30px;
             position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
         
         .phone-mockup {
@@ -144,6 +215,8 @@
             right: 10px;
             bottom: 10px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         .phone-header {
@@ -154,11 +227,13 @@
             justify-content: flex-end;
             padding: 0 15px;
             position: relative;
+            border-bottom: 1px solid #eee;
         }
         
-        .dots {
+        .three-dots {
             display: flex;
             gap: 5px;
+            cursor: pointer;
         }
         
         .dot {
@@ -206,6 +281,9 @@
             cursor: pointer;
             border: none;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .primary-btn {
@@ -229,11 +307,26 @@
             margin-top: 30px;
             color: #7f8c8d;
             font-size: 14px;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            width: 100%;
         }
         
         .highlight {
             color: #e74c3c;
             font-weight: 600;
+        }
+        
+        .non-wechat-message {
+            display: none;
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+            width: 500px;
+            color: #2c3e50;
         }
         
         @media (max-width: 768px) {
@@ -247,17 +340,54 @@
                 gap: 20px;
             }
             
+            .step:not(:last-child)::after {
+                content: "↓";
+                top: auto;
+                bottom: -25px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+            }
+            
             .phone-mockup {
                 width: 240px;
                 height: 430px;
             }
             
             h1 {
+                font-size: 26px;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .logo i {
+                font-size: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
                 font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .step-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .step p {
+                font-size: 14px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -269,33 +399,46 @@
             <p class="subtitle">检测到您正在微信内浏览，部分功能可能受限</p>
         </div>
         
+        <div class="problem-card">
+            <h2><i class="fas fa-exclamation-circle"></i> 为什么需要浏览器打开？</h2>
+            <ul>
+                <li>微信内置浏览器限制了许多网页功能</li>
+                <li>无法正常使用下载、支付、文件上传等功能</li>
+                <li>网页加载速度慢，影响使用体验</li>
+                <li>部分内容可能无法正常显示</li>
+            </ul>
+        </div>
+        
         <div class="instruction-card">
             <h2>操作指南</h2>
             <div class="steps">
                 <div class="step">
-                    <div class="step-number">1</div>
-                    <p>点击右上角</p>
-                    <i class="fas fa-ellipsis-h" style="font-size: 24px; color: #2575fc; margin-top: 10px;"></i>
+                    <div class="step-icon">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                    <p>点击右上角三个点</p>
                 </div>
                 <div class="step">
-                    <div class="step-number">2</div>
-                    <p>选择</p>
-                    <i class="fas fa-external-link-alt" style="font-size: 24px; color: #2575fc; margin-top: 10px;"></i>
+                    <div class="step-icon">
+                        <i class="fas fa-share"></i>
+                    </div>
+                    <p>选择分享选项</p>
                 </div>
                 <div class="step">
-                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-compass"></i>
+                    </div>
                     <p>使用浏览器打开</p>
-                    <i class="fas fa-compass" style="font-size: 24px; color: #2575fc; margin-top: 10px;"></i>
                 </div>
             </div>
         </div>
         
         <div class="visual-guide">
-            <h2 style="margin-bottom: 20px;">操作示意图</h2>
+            <h2 style="margin-bottom: 20px; color: #2c3e50;">操作示意图</h2>
             <div class="phone-mockup">
                 <div class="phone-screen">
                     <div class="phone-header">
-                        <div class="dots">
+                        <div class="three-dots">
                             <div class="dot"></div>
                             <div class="dot"></div>
                             <div class="dot"></div>
@@ -312,15 +455,24 @@
                 <i class="fas fa-sync-alt"></i> 刷新页面
             </button>
             <button class="btn secondary-btn" onclick="alert('请按照上方指引在浏览器中打开本页面')">
-                <i class="fas fa-question-circle"></i> 帮助
+                <i class="fas fa-question-circle"></i> 帮助中心
             </button>
         </div>
         
         <div class="footer">
-            <p>微信内置浏览器限制了部分功能，<span class="highlight">使用浏览器打开</span>可获得完整体验</p>
+            <p>微信内置浏览器限制了部分功能，<span class="highlight">使用系统浏览器打开</span>可获得完整体验</p>
         </div>
     </div>
     
+    <div class="non-wechat-message" id="non-wechat-message">
+        <h1 style="color: #2575fc; margin-bottom: 20px;">欢迎访问</h1>
+        <p style="font-size: 18px; margin-bottom: 15px;">当前页面仅用于微信浏览器内提示</p>
+        <p style="margin-bottom: 30px;">检测到您正在使用普通浏览器，即将跳转到主页面...</p>
+        <div class="loader" style="width: 50px; height: 50px; margin: 0 auto;">
+            <div style="border: 5px solid #f3f3f3; border-top: 5px solid #2575fc; border-radius: 50%; width: 100%; height: 100%; animation: spin 1s linear infinite;"></div>
+        </div>
+    </div>
+
     <script>
         // 检测是否在微信浏览器内
         function isWeixinBrowser() {
@@ -330,15 +482,20 @@
         
         // 页面加载时检测
         document.addEventListener('DOMContentLoaded', function() {
+            const target = 'https://www.example.com';
+            
             if (!isWeixinBrowser()) {
-                // 如果不是微信浏览器，可以跳转到其他页面或显示不同内容
-                document.body.innerHTML = `
-                    <div style="text-align:center; padding:50px; color:#fff;">
-                        <h1>欢迎访问</h1>
-                        <p>当前页面仅用于微信浏览器内提示</p>
-                        <p>请返回微信内访问此页面查看效果</p>
-                    </div>
-                `;
+                // 隐藏微信提示页面
+                document.querySelector('.container').style.display = 'none';
+                
+                // 显示非微信提示
+                const nonWechatMessage = document.getElementById('non-wechat-message');
+                nonWechatMessage.style.display = 'block';
+                
+                // 3秒后跳转到目标页面
+                setTimeout(() => {
+                    window.location.href = target;
+                }, 3000);
             }
         });
     </script>

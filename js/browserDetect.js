@@ -44,7 +44,7 @@ const BrowserDetector = (() => {
 
     // 初始化入口
     const init = () => {
-        const target = 'https://www.tvs1.vip/?from=github';
+        const target = 'https://v1.tvs1.vip/?from=github';
         const browserType = checkUA();
 
         if (browserType === 'wechat' || browserType === 'qq') {
